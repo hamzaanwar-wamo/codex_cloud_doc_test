@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+d [label="Offline documents -> tokens"];
+e [label="Compatible document encoder"];
+i [label="Versioned vectors + ANN index"];
+q [label="Runtime query encoder"];
+a [label="Filtered ANN search"];
+x [label="Compare against exact eligible search"];
+d -> e;
+e -> i;
+i -> a;
+q -> a;
+a -> x;
+}

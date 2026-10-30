@@ -1,0 +1,16 @@
+flowchart TD
+  f["Inspect source structure"]
+  c["Code -> AST<br/>Tables -> header + row groups"]
+  h["Reliable headings -> sections"]
+  u["Unstructured -> recursive fallback"]
+  x["Apply token limits / protect facts"]
+  ch["Index children"]
+  pa["Query-time parent expansion"]
+  f --> c
+  f --> h
+  f --> u
+  c --> x
+  h --> x
+  u --> x
+  x --> ch
+  ch --> pa

@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+i [label="INGEST\nParse / chunk / embed"];
+s [label="STORE\nOriginals + metadata + vectors"];
+q [label="QUERY\nAuthenticate / encode / search"];
+e [label="Fetch applicable evidence"];
+g [label="Generate + verify citations"];
+a [label="Answer / abstain\nAPI + workers + monitoring"];
+i -> s;
+s -> q;
+q -> e;
+e -> g;
+g -> a;
+}

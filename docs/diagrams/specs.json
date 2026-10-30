@@ -1,0 +1,1435 @@
+{
+  "01-lifecycle": {
+    "nodes": {
+      "s": "Sources",
+      "i": "INGESTION\nParse / version / chunk",
+      "db": "PERSISTENT STORES\nOriginals + chunks + indexes",
+      "q": "QUERY\nAuthenticate / scope / retrieve",
+      "v": "Evidence + generation + verification",
+      "a": "Cited answer or abstention"
+    },
+    "edges": [
+      [
+        "s",
+        "i"
+      ],
+      [
+        "i",
+        "db"
+      ],
+      [
+        "db",
+        "q"
+      ],
+      [
+        "q",
+        "v"
+      ],
+      [
+        "v",
+        "a"
+      ]
+    ]
+  },
+  "02-sizing": {
+    "nodes": {
+      "w": "Workload assumptions\nQueries + files + update rate",
+      "q": "Peak QPS x duration\nIn-flight requests",
+      "s": "Chunks x dimensions x bytes\nRaw vector storage",
+      "b": "Measure bottlenecks\nOCR / index / model quotas",
+      "c": "Provision + load test\nHeadroom + recovery capacity"
+    },
+    "edges": [
+      [
+        "w",
+        "q"
+      ],
+      [
+        "w",
+        "s"
+      ],
+      [
+        "q",
+        "b"
+      ],
+      [
+        "s",
+        "b"
+      ],
+      [
+        "b",
+        "c"
+      ]
+    ]
+  },
+  "03-ingestion": {
+    "nodes": {
+      "s": "Source revision + tenant",
+      "j": "Idempotent job\nSave original / parse / chunk",
+      "i": "Write new lexical + vector version",
+      "v": "Validate completeness + access",
+      "p": "Publish manifest",
+      "r": "Retry / reconcile / DLQ"
+    },
+    "edges": [
+      [
+        "s",
+        "j"
+      ],
+      [
+        "j",
+        "i"
+      ],
+      [
+        "i",
+        "v"
+      ],
+      [
+        "v",
+        "p",
+        "complete"
+      ],
+      [
+        "i",
+        "r",
+        "failure"
+      ],
+      [
+        "r",
+        "j",
+        "safe retry"
+      ]
+    ]
+  },
+  "04-chunking": {
+    "nodes": {
+      "f": "Inspect source structure",
+      "c": "Code -> AST\nTables -> header + row groups",
+      "h": "Reliable headings -> sections",
+      "u": "Unstructured -> recursive fallback",
+      "x": "Apply token limits / protect facts",
+      "ch": "Index children",
+      "pa": "Query-time parent expansion"
+    },
+    "edges": [
+      [
+        "f",
+        "c"
+      ],
+      [
+        "f",
+        "h"
+      ],
+      [
+        "f",
+        "u"
+      ],
+      [
+        "c",
+        "x"
+      ],
+      [
+        "h",
+        "x"
+      ],
+      [
+        "u",
+        "x"
+      ],
+      [
+        "x",
+        "ch"
+      ],
+      [
+        "ch",
+        "pa"
+      ]
+    ]
+  },
+  "05-metadata": {
+    "nodes": {
+      "d": "Document / chunk metadata\nTenant, source, version, spans",
+      "e": "Rules / NER / LLM enrichment\nKeep source and method",
+      "s": "Persist validated fields",
+      "q": "Runtime identity + question + date",
+      "f": "Server hard scope\nModel hints remain validated",
+      "r": "Scoped route / search / evidence"
+    },
+    "edges": [
+      [
+        "d",
+        "e"
+      ],
+      [
+        "e",
+        "s"
+      ],
+      [
+        "s",
+        "f"
+      ],
+      [
+        "q",
+        "f"
+      ],
+      [
+        "f",
+        "r"
+      ]
+    ]
+  },
+  "06-vectors": {
+    "nodes": {
+      "d": "Offline documents -> tokens",
+      "e": "Compatible document encoder",
+      "i": "Versioned vectors + ANN index",
+      "q": "Runtime query encoder",
+      "a": "Filtered ANN search",
+      "x": "Compare against exact eligible search"
+    },
+    "edges": [
+      [
+        "d",
+        "e"
+      ],
+      [
+        "e",
+        "i"
+      ],
+      [
+        "i",
+        "a"
+      ],
+      [
+        "q",
+        "a"
+      ],
+      [
+        "a",
+        "x"
+      ]
+    ]
+  },
+  "07-bm25": {
+    "nodes": {
+      "d": "Parsed authorized chunks",
+      "a": "Analyzer\nTerms + frequencies + positions",
+      "p": "Inverted postings\nterm -> chunk IDs + statistics",
+      "q": "Query terms / exact fields",
+      "b": "Visit postings + BM25 scoring",
+      "r": "Ranked source IDs -> evidence"
+    },
+    "edges": [
+      [
+        "d",
+        "a"
+      ],
+      [
+        "a",
+        "p"
+      ],
+      [
+        "p",
+        "b"
+      ],
+      [
+        "q",
+        "b"
+      ],
+      [
+        "b",
+        "r"
+      ]
+    ]
+  },
+  "08-hybrid": {
+    "nodes": {
+      "q": "Authorized query + date",
+      "b": "BM25 candidates",
+      "v": "Dense candidates",
+      "f": "RRF / calibrated fusion",
+      "r": "Deduplicate + rerank",
+      "e": "Expand / pack / verify evidence"
+    },
+    "edges": [
+      [
+        "q",
+        "b"
+      ],
+      [
+        "q",
+        "v"
+      ],
+      [
+        "b",
+        "f"
+      ],
+      [
+        "v",
+        "f"
+      ],
+      [
+        "f",
+        "r"
+      ],
+      [
+        "r",
+        "e"
+      ]
+    ]
+  },
+  "09-reranking": {
+    "nodes": {
+      "k": "Candidate top-K\nOptimize evidence recall",
+      "r": "Cross-encoder / reranker",
+      "d": "Deduplicate + diversity",
+      "p": "Authorized parent expansion",
+      "n": "Final context top-N / token budget",
+      "v": "Check all required facts"
+    },
+    "edges": [
+      [
+        "k",
+        "r"
+      ],
+      [
+        "r",
+        "d"
+      ],
+      [
+        "d",
+        "p"
+      ],
+      [
+        "p",
+        "n"
+      ],
+      [
+        "n",
+        "v"
+      ]
+    ]
+  },
+  "10-standard": {
+    "nodes": {
+      "i": "INGEST\nParse / chunk / embed",
+      "s": "STORE\nOriginals + metadata + vectors",
+      "q": "QUERY\nAuthenticate / encode / search",
+      "e": "Fetch applicable evidence",
+      "g": "Generate + verify citations",
+      "a": "Answer / abstain\nAPI + workers + monitoring"
+    },
+    "edges": [
+      [
+        "i",
+        "s"
+      ],
+      [
+        "s",
+        "q"
+      ],
+      [
+        "q",
+        "e"
+      ],
+      [
+        "e",
+        "g"
+      ],
+      [
+        "g",
+        "a"
+      ]
+    ]
+  },
+  "11-production-hybrid": {
+    "nodes": {
+      "i": "Canonical ingestion + shared IDs",
+      "l": "Lexical index",
+      "d": "Dense index",
+      "m": "Publish compatible manifest",
+      "q": "Scoped parallel query + fusion",
+      "c": "Rerank / parent / evidence",
+      "a": "Generate / verify / serve"
+    },
+    "edges": [
+      [
+        "i",
+        "l"
+      ],
+      [
+        "i",
+        "d"
+      ],
+      [
+        "l",
+        "m"
+      ],
+      [
+        "d",
+        "m"
+      ],
+      [
+        "m",
+        "q"
+      ],
+      [
+        "q",
+        "c"
+      ],
+      [
+        "c",
+        "a"
+      ]
+    ]
+  },
+  "12-vectorless": {
+    "nodes": {
+      "i": "Parse headings / fields / source spans",
+      "s": "Store tree + lexical + exact indexes",
+      "q": "Scoped question",
+      "x": "Exact ID / version / section",
+      "b": "BM25 / tree navigation",
+      "e": "Original source evidence",
+      "a": "Verify / cite / serve"
+    },
+    "edges": [
+      [
+        "i",
+        "s"
+      ],
+      [
+        "s",
+        "q"
+      ],
+      [
+        "q",
+        "x",
+        "known key"
+      ],
+      [
+        "q",
+        "b",
+        "exploratory"
+      ],
+      [
+        "x",
+        "e"
+      ],
+      [
+        "b",
+        "e"
+      ],
+      [
+        "e",
+        "a"
+      ]
+    ]
+  },
+  "13-graph": {
+    "nodes": {
+      "s": "Sources -> chunks + spans",
+      "e": "Extract + resolve entities / assertions",
+      "g": "Versioned graph + optional summaries",
+      "q": "Scoped entity / relation query",
+      "p": "Bounded permitted paths",
+      "f": "Fetch original evidence for each edge",
+      "a": "Verify joins + dates -> cited answer"
+    },
+    "edges": [
+      [
+        "s",
+        "e"
+      ],
+      [
+        "e",
+        "g"
+      ],
+      [
+        "g",
+        "q"
+      ],
+      [
+        "q",
+        "p"
+      ],
+      [
+        "p",
+        "f"
+      ],
+      [
+        "f",
+        "a"
+      ]
+    ]
+  },
+  "14-agent": {
+    "nodes": {
+      "q": "Question -> plan",
+      "t": "Select allowed tool",
+      "r": "Retrieve with server scope",
+      "e": "Check evidence / gaps",
+      "s": "Synthesize -> verify -> answer",
+      "p": "Replan for specific gap",
+      "b": "Budget / deadline / no progress?",
+      "a": "Partial supported answer / abstain"
+    },
+    "edges": [
+      [
+        "q",
+        "t"
+      ],
+      [
+        "t",
+        "r"
+      ],
+      [
+        "r",
+        "e"
+      ],
+      [
+        "e",
+        "s",
+        "sufficient"
+      ],
+      [
+        "e",
+        "b",
+        "gap"
+      ],
+      [
+        "b",
+        "p",
+        "budget remains"
+      ],
+      [
+        "p",
+        "t"
+      ],
+      [
+        "b",
+        "a",
+        "stop"
+      ]
+    ]
+  },
+  "15-variants": {
+    "nodes": {
+      "q": "Information need",
+      "s": "Exact facts -> SQL / lookup",
+      "t": "Time-sensitive -> temporal",
+      "m": "Images / tables -> multimodal",
+      "r": "Research -> multi-hop / adaptive",
+      "e": "Common evidence verification + access"
+    },
+    "edges": [
+      [
+        "q",
+        "s"
+      ],
+      [
+        "q",
+        "t"
+      ],
+      [
+        "q",
+        "m"
+      ],
+      [
+        "q",
+        "r"
+      ],
+      [
+        "s",
+        "e"
+      ],
+      [
+        "t",
+        "e"
+      ],
+      [
+        "m",
+        "e"
+      ],
+      [
+        "r",
+        "e"
+      ]
+    ]
+  },
+  "16-selection": {
+    "nodes": {
+      "q": "What is missing from a simple baseline?",
+      "x": "Known key -> lookup\nRare terms -> BM25",
+      "p": "Paraphrase -> dense\nMixed -> hybrid",
+      "g": "Relationships -> graph",
+      "a": "Variable steps -> bounded agent",
+      "e": "Evaluate quality / isolation / cost\nKeep only justified complexity"
+    },
+    "edges": [
+      [
+        "q",
+        "x"
+      ],
+      [
+        "q",
+        "p"
+      ],
+      [
+        "q",
+        "g"
+      ],
+      [
+        "q",
+        "a"
+      ],
+      [
+        "x",
+        "e"
+      ],
+      [
+        "p",
+        "e"
+      ],
+      [
+        "g",
+        "e"
+      ],
+      [
+        "a",
+        "e"
+      ]
+    ]
+  },
+  "17-evidence": {
+    "nodes": {
+      "e": "Candidate evidence",
+      "v": "Check scope / authority / date",
+      "f": "Required facts + contradiction check",
+      "c": "Draft -> material claims",
+      "s": "Map claims to original spans",
+      "j": "Rules + calibrated semantic checks",
+      "a": "Release supported answer",
+      "n": "Revise / disclose gap / abstain"
+    },
+    "edges": [
+      [
+        "e",
+        "v"
+      ],
+      [
+        "v",
+        "f"
+      ],
+      [
+        "f",
+        "c"
+      ],
+      [
+        "c",
+        "s"
+      ],
+      [
+        "s",
+        "j"
+      ],
+      [
+        "j",
+        "a",
+        "supported"
+      ],
+      [
+        "j",
+        "n",
+        "unsupported"
+      ]
+    ]
+  },
+  "18-generation": {
+    "nodes": {
+      "i": "Trusted instructions + question",
+      "e": "Untrusted source blocks + citation IDs",
+      "p": "Budgeted prompt",
+      "g": "Grounded structured draft",
+      "v": "Schema + citations + claim checks",
+      "a": "Verified release",
+      "r": "Revise / abstain"
+    },
+    "edges": [
+      [
+        "i",
+        "p"
+      ],
+      [
+        "e",
+        "p"
+      ],
+      [
+        "p",
+        "g"
+      ],
+      [
+        "g",
+        "v"
+      ],
+      [
+        "v",
+        "a",
+        "pass"
+      ],
+      [
+        "v",
+        "r",
+        "fail"
+      ]
+    ]
+  },
+  "19-dataset": {
+    "nodes": {
+      "s": "Privacy-reviewed query samples",
+      "g": "Add edge cases / negative slices",
+      "a": "Independent annotation",
+      "j": "Adjudication + label guidelines",
+      "v": "Version question + scope + corpus",
+      "h": "Separate tuning / final holdout"
+    },
+    "edges": [
+      [
+        "s",
+        "g"
+      ],
+      [
+        "g",
+        "a"
+      ],
+      [
+        "a",
+        "j"
+      ],
+      [
+        "j",
+        "v"
+      ],
+      [
+        "v",
+        "h"
+      ]
+    ]
+  },
+  "20-retrieval-metrics": {
+    "nodes": {
+      "l": "Versioned relevance / fact labels",
+      "c": "Candidate recall + ANN reference",
+      "r": "Reranked precision / nDCG",
+      "p": "Packed-context fact coverage",
+      "h": "Multi-hop complete path coverage",
+      "d": "Locate first stage losing evidence"
+    },
+    "edges": [
+      [
+        "l",
+        "c"
+      ],
+      [
+        "c",
+        "r"
+      ],
+      [
+        "r",
+        "p"
+      ],
+      [
+        "p",
+        "h"
+      ],
+      [
+        "h",
+        "d"
+      ]
+    ]
+  },
+  "21-answer-metrics": {
+    "nodes": {
+      "a": "Answer + applicable sources + rubric",
+      "d": "Deterministic checks",
+      "j": "Calibrated judge + human sample",
+      "s": "Correctness / support / completeness",
+      "r": "Risk-coverage + critical access failures",
+      "g": "Release / reject under defined gates"
+    },
+    "edges": [
+      [
+        "a",
+        "d"
+      ],
+      [
+        "a",
+        "j"
+      ],
+      [
+        "d",
+        "s"
+      ],
+      [
+        "j",
+        "s"
+      ],
+      [
+        "s",
+        "r"
+      ],
+      [
+        "r",
+        "g"
+      ]
+    ]
+  },
+  "22-agent-eval": {
+    "nodes": {
+      "t": "Task + constraints",
+      "r": "Recorded tool / evidence trajectory",
+      "o": "Outcome correctness + support",
+      "s": "Access / termination / recovery",
+      "c": "Latency / tokens / cost / extra calls",
+      "b": "Compare to fixed-workflow baseline"
+    },
+    "edges": [
+      [
+        "t",
+        "r"
+      ],
+      [
+        "r",
+        "o"
+      ],
+      [
+        "r",
+        "s"
+      ],
+      [
+        "r",
+        "c"
+      ],
+      [
+        "o",
+        "b"
+      ],
+      [
+        "s",
+        "b"
+      ],
+      [
+        "c",
+        "b"
+      ]
+    ]
+  },
+  "23-experiments": {
+    "nodes": {
+      "b": "Versioned baseline + held-out slices",
+      "a": "Controlled ablations",
+      "u": "Paired results + uncertainty",
+      "g": "Quality / safety / cost gates",
+      "s": "Shadow -> canary / A-B",
+      "m": "Monitor / rollback / regression"
+    },
+    "edges": [
+      [
+        "b",
+        "a"
+      ],
+      [
+        "a",
+        "u"
+      ],
+      [
+        "u",
+        "g"
+      ],
+      [
+        "g",
+        "s"
+      ],
+      [
+        "s",
+        "m"
+      ]
+    ]
+  },
+  "24-deployment": {
+    "nodes": {
+      "c": "Client -> authenticated API",
+      "q": "Query orchestrator / model gateway",
+      "s": "Metadata + lexical / vector / graph stores",
+      "m": "Monitoring + audit + backup",
+      "i": "Sources -> durable queue",
+      "w": "Worker pool -> objects + indexes"
+    },
+    "edges": [
+      [
+        "c",
+        "q"
+      ],
+      [
+        "q",
+        "s"
+      ],
+      [
+        "s",
+        "m"
+      ],
+      [
+        "i",
+        "w"
+      ],
+      [
+        "w",
+        "s"
+      ],
+      [
+        "w",
+        "m"
+      ]
+    ]
+  },
+  "25-latency": {
+    "nodes": {
+      "a": "Auth / understanding\nIllustrative 100 ms",
+      "l": "Lexical 120 ms",
+      "v": "Vector 200 ms",
+      "r": "Merge / rerank / pack\n250 ms",
+      "g": "Generation\n1000 ms",
+      "x": "Verification\n300 ms",
+      "t": "Illustrative total 1850 ms\nExcludes unmeasured overhead"
+    },
+    "edges": [
+      [
+        "a",
+        "l"
+      ],
+      [
+        "a",
+        "v"
+      ],
+      [
+        "l",
+        "r"
+      ],
+      [
+        "v",
+        "r"
+      ],
+      [
+        "r",
+        "g"
+      ],
+      [
+        "g",
+        "x"
+      ],
+      [
+        "x",
+        "t"
+      ]
+    ]
+  },
+  "26-security": {
+    "nodes": {
+      "i": "Authenticated identity",
+      "p": "Trusted scope / policy service",
+      "r": "Search / graph / SQL / parent fetch",
+      "c": "Cache + source links",
+      "e": "Authorized evidence only",
+      "o": "Model + constrained tools\nNo model-granted capabilities",
+      "a": "Output + access-controlled audit"
+    },
+    "edges": [
+      [
+        "i",
+        "p"
+      ],
+      [
+        "p",
+        "r"
+      ],
+      [
+        "p",
+        "c"
+      ],
+      [
+        "r",
+        "e"
+      ],
+      [
+        "c",
+        "e"
+      ],
+      [
+        "e",
+        "o"
+      ],
+      [
+        "o",
+        "a"
+      ]
+    ]
+  },
+  "27-observability": {
+    "nodes": {
+      "r": "Request / ingestion trace ID",
+      "s": "Safe spans: IDs + versions + ranks",
+      "m": "Metrics: latency / quality / freshness / cost",
+      "a": "Audit: authorized access / actions",
+      "d": "Detect + investigate + isolate",
+      "f": "Restore verified path / regression"
+    },
+    "edges": [
+      [
+        "r",
+        "s"
+      ],
+      [
+        "s",
+        "m"
+      ],
+      [
+        "s",
+        "a"
+      ],
+      [
+        "m",
+        "d"
+      ],
+      [
+        "a",
+        "d"
+      ],
+      [
+        "d",
+        "f"
+      ]
+    ]
+  },
+  "28-debugging": {
+    "nodes": {
+      "q": "Reproduce query + identity + version",
+      "s": "Source -> parse -> chunk",
+      "i": "Index -> candidate recall",
+      "r": "Rerank -> packed context",
+      "g": "Generation -> verified claim",
+      "f": "Fix first broken boundary\nRe-evaluate affected slices"
+    },
+    "edges": [
+      [
+        "q",
+        "s"
+      ],
+      [
+        "s",
+        "i"
+      ],
+      [
+        "i",
+        "r"
+      ],
+      [
+        "r",
+        "g"
+      ],
+      [
+        "g",
+        "f"
+      ]
+    ]
+  },
+  "29-implementation": {
+    "nodes": {
+      "l": "OFFLINE LAB\nSynthetic versioned corpus",
+      "s": "Scope / date filter",
+      "b": "BM25 + hashed lexical vectors",
+      "f": "RRF + source excerpts + metrics",
+      "p": "PRODUCTION EXTENSIONS\nReal parser / DB / models / verifier",
+      "t": "Actual integration + fault tests required"
+    },
+    "edges": [
+      [
+        "l",
+        "s"
+      ],
+      [
+        "s",
+        "b"
+      ],
+      [
+        "b",
+        "f"
+      ],
+      [
+        "f",
+        "p",
+        "adapter boundary"
+      ],
+      [
+        "p",
+        "t"
+      ]
+    ]
+  },
+  "30-walkthroughs": {
+    "nodes": {
+      "q": "Question + scope + date",
+      "v": "A: vector factual",
+      "h": "Explanation: hybrid",
+      "x": "C: exact vectorless",
+      "g": "B: graph path",
+      "a": "Comparison: bounded agent",
+      "e": "Applicable original evidence",
+      "r": "Verify claims / citations -> release"
+    },
+    "edges": [
+      [
+        "q",
+        "v"
+      ],
+      [
+        "q",
+        "h"
+      ],
+      [
+        "q",
+        "x"
+      ],
+      [
+        "q",
+        "g"
+      ],
+      [
+        "q",
+        "a"
+      ],
+      [
+        "v",
+        "e"
+      ],
+      [
+        "h",
+        "e"
+      ],
+      [
+        "x",
+        "e"
+      ],
+      [
+        "g",
+        "e"
+      ],
+      [
+        "a",
+        "e"
+      ],
+      [
+        "e",
+        "r"
+      ]
+    ]
+  },
+  "31-interview": {
+    "nodes": {
+      "c": "0-10 min\nClarify + size",
+      "i": "10-20 min\nIngestion + versions",
+      "r": "20-35 min\nRetrieval + evidence",
+      "e": "35-45 min\nEvaluation + cost",
+      "s": "45-55 min\nSecurity + failures",
+      "t": "55-60 min\nTrade-offs + next validation"
+    },
+    "edges": [
+      [
+        "c",
+        "i"
+      ],
+      [
+        "i",
+        "r"
+      ],
+      [
+        "r",
+        "e"
+      ],
+      [
+        "e",
+        "s"
+      ],
+      [
+        "s",
+        "t"
+      ]
+    ]
+  },
+  "32-questions": {
+    "nodes": {
+      "q": "Short direct answer",
+      "f": "Explain the data flow",
+      "e": "Give one concrete example",
+      "t": "Name the trade-off / failure",
+      "m": "State how to measure success"
+    },
+    "edges": [
+      [
+        "q",
+        "f"
+      ],
+      [
+        "f",
+        "e"
+      ],
+      [
+        "e",
+        "t"
+      ],
+      [
+        "t",
+        "m"
+      ]
+    ]
+  },
+  "33-challenges": {
+    "nodes": {
+      "c": "Identify constraint",
+      "b": "Compare simple baseline",
+      "d": "Change the failing layer",
+      "e": "Evaluate target + critical slices",
+      "r": "Roll out / rollback with evidence"
+    },
+    "edges": [
+      [
+        "c",
+        "b"
+      ],
+      [
+        "b",
+        "d"
+      ],
+      [
+        "d",
+        "e"
+      ],
+      [
+        "e",
+        "r"
+      ]
+    ]
+  },
+  "34-revision": {
+    "nodes": {
+      "s": "Current authorized sources",
+      "i": "Versioned retrievable representations",
+      "r": "Relevant + sufficient evidence",
+      "c": "Supported material claims",
+      "a": "Cited answer or explicit gap",
+      "m": "Measured quality / freshness / cost"
+    },
+    "edges": [
+      [
+        "s",
+        "i"
+      ],
+      [
+        "i",
+        "r"
+      ],
+      [
+        "r",
+        "c"
+      ],
+      [
+        "c",
+        "a"
+      ],
+      [
+        "a",
+        "m"
+      ]
+    ]
+  },
+  "35-schema": {
+    "nodes": {
+      "d": "DOCUMENT\ndoc_id + tenant + source identity",
+      "v": "VERSION\ndoc_id + revision + effective interval",
+      "c": "CHUNK\nchunk_id + source span + parent",
+      "x": "SEARCH RECORDS\nlexical / vector + version",
+      "g": "GRAPH ASSERTION\nrelation + source chunk + dates",
+      "q": "QUERY RUN\nscope + index version + trace",
+      "e": "CLAIM VERDICT\nclaim + source IDs + verifier"
+    },
+    "edges": [
+      [
+        "d",
+        "v",
+        "1:N"
+      ],
+      [
+        "v",
+        "c",
+        "1:N"
+      ],
+      [
+        "c",
+        "x",
+        "derived"
+      ],
+      [
+        "c",
+        "g",
+        "source support"
+      ],
+      [
+        "q",
+        "e",
+        "1:N"
+      ],
+      [
+        "c",
+        "e",
+        "evidence reference"
+      ]
+    ]
+  },
+  "36-query-sequence": {
+    "nodes": {
+      "u": "1 USER -> API\nquestion + authenticated session",
+      "a": "2 API -> POLICY\nresolve current access",
+      "s": "3 ORCHESTRATOR -> SEARCHES\nparallel scoped retrieval",
+      "r": "4 SEARCHES -> ORCHESTRATOR\ncandidate IDs / ranks / versions",
+      "e": "5 ORCHESTRATOR -> SOURCES\nfetch authorized applicable evidence",
+      "m": "6 ORCHESTRATOR -> MODEL\nquestion + bounded source blocks",
+      "v": "7 MODEL -> VERIFIER\ndraft + citation IDs",
+      "o": "8 API -> USER\nverified answer or gap"
+    },
+    "edges": [
+      [
+        "u",
+        "a"
+      ],
+      [
+        "a",
+        "s"
+      ],
+      [
+        "s",
+        "r"
+      ],
+      [
+        "r",
+        "e"
+      ],
+      [
+        "e",
+        "m"
+      ],
+      [
+        "m",
+        "v"
+      ],
+      [
+        "v",
+        "o"
+      ]
+    ]
+  },
+  "37-chunk-tree": {
+    "nodes": {
+      "d": "HR-42 v3 document",
+      "s": "Leave section",
+      "o": "Other sections",
+      "c": "Carry-forward child\ncap + page/span",
+      "e": "Eligibility child\nexceptions + page/span",
+      "t": "Entitlement table child\nheaders + units",
+      "q": "Query hits child -> expand authorized section"
+    },
+    "edges": [
+      [
+        "d",
+        "s"
+      ],
+      [
+        "d",
+        "o"
+      ],
+      [
+        "s",
+        "c"
+      ],
+      [
+        "s",
+        "e"
+      ],
+      [
+        "s",
+        "t"
+      ],
+      [
+        "c",
+        "q",
+        "retrieval hit"
+      ]
+    ]
+  },
+  "38-graph-example": {
+    "nodes": {
+      "a": "Team Atlas",
+      "l": "Service Ledger",
+      "o": "Vendor Orion",
+      "p": "Retention Policy R7",
+      "s1": "Source chunk S1\nTeam / service evidence",
+      "s2": "Source chunk S2\nSupplier evidence",
+      "s3": "Source chunk S3\nPolicy applicability evidence"
+    },
+    "edges": [
+      [
+        "a",
+        "l",
+        "USES"
+      ],
+      [
+        "l",
+        "o",
+        "SUPPLIED_BY"
+      ],
+      [
+        "o",
+        "p",
+        "SUBJECT_TO"
+      ],
+      [
+        "s1",
+        "a",
+        "supports"
+      ],
+      [
+        "s1",
+        "l",
+        "supports"
+      ],
+      [
+        "s2",
+        "l",
+        "supports"
+      ],
+      [
+        "s2",
+        "o",
+        "supports"
+      ],
+      [
+        "s3",
+        "o",
+        "supports"
+      ],
+      [
+        "s3",
+        "p",
+        "supports"
+      ]
+    ]
+  }
+}

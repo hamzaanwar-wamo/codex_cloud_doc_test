@@ -1,0 +1,15 @@
+flowchart TD
+  i["Authenticated identity"]
+  p["Trusted scope / policy service"]
+  r["Search / graph / SQL / parent fetch"]
+  c["Cache + source links"]
+  e["Authorized evidence only"]
+  o["Model + constrained tools<br/>No model-granted capabilities"]
+  a["Output + access-controlled audit"]
+  i --> p
+  p --> r
+  p --> c
+  r --> e
+  c --> e
+  e --> o
+  o --> a

@@ -1,0 +1,18 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+d [label="HR-42 v3 document"];
+s [label="Leave section"];
+o [label="Other sections"];
+c [label="Carry-forward child\ncap + page/span"];
+e [label="Eligibility child\nexceptions + page/span"];
+t [label="Entitlement table child\nheaders + units"];
+q [label="Query hits child -> expand authorized section"];
+d -> s;
+d -> o;
+s -> c;
+s -> e;
+s -> t;
+c -> q [label="retrieval hit"];
+}

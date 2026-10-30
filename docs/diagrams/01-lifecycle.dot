@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+s [label="Sources"];
+i [label="INGESTION\nParse / version / chunk"];
+db [label="PERSISTENT STORES\nOriginals + chunks + indexes"];
+q [label="QUERY\nAuthenticate / scope / retrieve"];
+v [label="Evidence + generation + verification"];
+a [label="Cited answer or abstention"];
+s -> i;
+i -> db;
+db -> q;
+q -> v;
+v -> a;
+}

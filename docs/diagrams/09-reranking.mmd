@@ -1,0 +1,12 @@
+flowchart TD
+  k["Candidate top-K<br/>Optimize evidence recall"]
+  r["Cross-encoder / reranker"]
+  d["Deduplicate + diversity"]
+  p["Authorized parent expansion"]
+  n["Final context top-N / token budget"]
+  v["Check all required facts"]
+  k --> r
+  r --> d
+  d --> p
+  p --> n
+  n --> v

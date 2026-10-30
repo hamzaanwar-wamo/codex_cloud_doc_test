@@ -1,0 +1,14 @@
+flowchart TD
+  i["Trusted instructions + question"]
+  e["Untrusted source blocks + citation IDs"]
+  p["Budgeted prompt"]
+  g["Grounded structured draft"]
+  v["Schema + citations + claim checks"]
+  a["Verified release"]
+  r["Revise / abstain"]
+  i --> p
+  e --> p
+  p --> g
+  g --> v
+  v -->|"pass"| a
+  v -->|"fail"| r

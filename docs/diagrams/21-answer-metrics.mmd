@@ -1,0 +1,13 @@
+flowchart TD
+  a["Answer + applicable sources + rubric"]
+  d["Deterministic checks"]
+  j["Calibrated judge + human sample"]
+  s["Correctness / support / completeness"]
+  r["Risk-coverage + critical access failures"]
+  g["Release / reject under defined gates"]
+  a --> d
+  a --> j
+  d --> s
+  j --> s
+  s --> r
+  r --> g

@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+q [label="Reproduce query + identity + version"];
+s [label="Source -> parse -> chunk"];
+i [label="Index -> candidate recall"];
+r [label="Rerank -> packed context"];
+g [label="Generation -> verified claim"];
+f [label="Fix first broken boundary\nRe-evaluate affected slices"];
+q -> s;
+s -> i;
+i -> r;
+r -> g;
+g -> f;
+}

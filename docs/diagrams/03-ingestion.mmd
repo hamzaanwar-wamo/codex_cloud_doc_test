@@ -1,0 +1,13 @@
+flowchart TD
+  s["Source revision + tenant"]
+  j["Idempotent job<br/>Save original / parse / chunk"]
+  i["Write new lexical + vector version"]
+  v["Validate completeness + access"]
+  p["Publish manifest"]
+  r["Retry / reconcile / DLQ"]
+  s --> j
+  j --> i
+  i --> v
+  v -->|"complete"| p
+  i -->|"failure"| r
+  r -->|"safe retry"| j

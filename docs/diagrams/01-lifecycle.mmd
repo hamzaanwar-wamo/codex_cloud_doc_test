@@ -1,0 +1,12 @@
+flowchart TD
+  s["Sources"]
+  i["INGESTION<br/>Parse / version / chunk"]
+  db["PERSISTENT STORES<br/>Originals + chunks + indexes"]
+  q["QUERY<br/>Authenticate / scope / retrieve"]
+  v["Evidence + generation + verification"]
+  a["Cited answer or abstention"]
+  s --> i
+  i --> db
+  db --> q
+  q --> v
+  v --> a

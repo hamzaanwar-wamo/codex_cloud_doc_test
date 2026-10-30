@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+l [label="OFFLINE LAB\nSynthetic versioned corpus"];
+s [label="Scope / date filter"];
+b [label="BM25 + hashed lexical vectors"];
+f [label="RRF + source excerpts + metrics"];
+p [label="PRODUCTION EXTENSIONS\nReal parser / DB / models / verifier"];
+t [label="Actual integration + fault tests required"];
+l -> s;
+s -> b;
+b -> f;
+f -> p [label="adapter boundary"];
+p -> t;
+}

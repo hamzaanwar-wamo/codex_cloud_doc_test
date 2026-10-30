@@ -1,0 +1,12 @@
+flowchart TD
+  b["Versioned baseline + held-out slices"]
+  a["Controlled ablations"]
+  u["Paired results + uncertainty"]
+  g["Quality / safety / cost gates"]
+  s["Shadow -> canary / A-B"]
+  m["Monitor / rollback / regression"]
+  b --> a
+  a --> u
+  u --> g
+  g --> s
+  s --> m

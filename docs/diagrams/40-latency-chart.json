@@ -1,0 +1,27 @@
+{
+  "stages": [
+    "Auth / understand",
+    "Lexical (parallel)",
+    "Vector (parallel)",
+    "Rerank / pack",
+    "Generate",
+    "Verify"
+  ],
+  "start_ms": [
+    0,
+    100,
+    100,
+    300,
+    550,
+    1550
+  ],
+  "duration_ms": [
+    100,
+    120,
+    200,
+    250,
+    1000,
+    300
+  ],
+  "kind": "hypothetical critical-path budget"
+}

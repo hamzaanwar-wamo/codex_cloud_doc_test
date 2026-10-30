@@ -1,0 +1,12 @@
+flowchart TD
+  d["Parsed authorized chunks"]
+  a["Analyzer<br/>Terms + frequencies + positions"]
+  p["Inverted postings<br/>term -> chunk IDs + statistics"]
+  q["Query terms / exact fields"]
+  b["Visit postings + BM25 scoring"]
+  r["Ranked source IDs -> evidence"]
+  d --> a
+  a --> p
+  p --> b
+  q --> b
+  b --> r

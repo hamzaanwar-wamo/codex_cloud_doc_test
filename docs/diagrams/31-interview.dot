@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+c [label="0-10 min\nClarify + size"];
+i [label="10-20 min\nIngestion + versions"];
+r [label="20-35 min\nRetrieval + evidence"];
+e [label="35-45 min\nEvaluation + cost"];
+s [label="45-55 min\nSecurity + failures"];
+t [label="55-60 min\nTrade-offs + next validation"];
+c -> i;
+i -> r;
+r -> e;
+e -> s;
+s -> t;
+}

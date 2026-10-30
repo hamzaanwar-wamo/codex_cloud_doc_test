@@ -1,0 +1,21 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+q [label="Question -> plan"];
+t [label="Select allowed tool"];
+r [label="Retrieve with server scope"];
+e [label="Check evidence / gaps"];
+s [label="Synthesize -> verify -> answer"];
+p [label="Replan for specific gap"];
+b [label="Budget / deadline / no progress?"];
+a [label="Partial supported answer / abstain"];
+q -> t;
+t -> r;
+r -> e;
+e -> s [label="sufficient"];
+e -> b [label="gap"];
+b -> p [label="budget remains"];
+p -> t;
+b -> a [label="stop"];
+}

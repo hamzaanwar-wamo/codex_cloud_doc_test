@@ -1,0 +1,10 @@
+flowchart TD
+  c["Identify constraint"]
+  b["Compare simple baseline"]
+  d["Change the failing layer"]
+  e["Evaluate target + critical slices"]
+  r["Roll out / rollback with evidence"]
+  c --> b
+  b --> d
+  d --> e
+  e --> r

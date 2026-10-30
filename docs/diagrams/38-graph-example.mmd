@@ -1,0 +1,17 @@
+flowchart TD
+  a["Team Atlas"]
+  l["Service Ledger"]
+  o["Vendor Orion"]
+  p["Retention Policy R7"]
+  s1["Source chunk S1<br/>Team / service evidence"]
+  s2["Source chunk S2<br/>Supplier evidence"]
+  s3["Source chunk S3<br/>Policy applicability evidence"]
+  a -->|"USES"| l
+  l -->|"SUPPLIED_BY"| o
+  o -->|"SUBJECT_TO"| p
+  s1 -->|"supports"| a
+  s1 -->|"supports"| l
+  s2 -->|"supports"| l
+  s2 -->|"supports"| o
+  s3 -->|"supports"| o
+  s3 -->|"supports"| p

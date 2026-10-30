@@ -1,0 +1,14 @@
+flowchart TD
+  d["HR-42 v3 document"]
+  s["Leave section"]
+  o["Other sections"]
+  c["Carry-forward child<br/>cap + page/span"]
+  e["Eligibility child<br/>exceptions + page/span"]
+  t["Entitlement table child<br/>headers + units"]
+  q["Query hits child -> expand authorized section"]
+  d --> s
+  d --> o
+  s --> c
+  s --> e
+  s --> t
+  c -->|"retrieval hit"| q

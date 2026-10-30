@@ -1,0 +1,15 @@
+flowchart TD
+  a["Auth / understanding<br/>Illustrative 100 ms"]
+  l["Lexical 120 ms"]
+  v["Vector 200 ms"]
+  r["Merge / rerank / pack<br/>250 ms"]
+  g["Generation<br/>1000 ms"]
+  x["Verification<br/>300 ms"]
+  t["Illustrative total 1850 ms<br/>Excludes unmeasured overhead"]
+  a --> l
+  a --> v
+  l --> r
+  v --> r
+  r --> g
+  g --> x
+  x --> t

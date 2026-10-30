@@ -1,0 +1,16 @@
+flowchart TD
+  e["Candidate evidence"]
+  v["Check scope / authority / date"]
+  f["Required facts + contradiction check"]
+  c["Draft -> material claims"]
+  s["Map claims to original spans"]
+  j["Rules + calibrated semantic checks"]
+  a["Release supported answer"]
+  n["Revise / disclose gap / abstain"]
+  e --> v
+  v --> f
+  f --> c
+  c --> s
+  s --> j
+  j -->|"supported"| a
+  j -->|"unsupported"| n

@@ -1,0 +1,12 @@
+flowchart TD
+  c["0-10 min<br/>Clarify + size"]
+  i["10-20 min<br/>Ingestion + versions"]
+  r["20-35 min<br/>Retrieval + evidence"]
+  e["35-45 min<br/>Evaluation + cost"]
+  s["45-55 min<br/>Security + failures"]
+  t["55-60 min<br/>Trade-offs + next validation"]
+  c --> i
+  i --> r
+  r --> e
+  e --> s
+  s --> t

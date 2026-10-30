@@ -1,0 +1,15 @@
+flowchart TD
+  i["Parse headings / fields / source spans"]
+  s["Store tree + lexical + exact indexes"]
+  q["Scoped question"]
+  x["Exact ID / version / section"]
+  b["BM25 / tree navigation"]
+  e["Original source evidence"]
+  a["Verify / cite / serve"]
+  i --> s
+  s --> q
+  q -->|"known key"| x
+  q -->|"exploratory"| b
+  x --> e
+  b --> e
+  e --> a

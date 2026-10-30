@@ -1,0 +1,12 @@
+flowchart TD
+  i["INGEST<br/>Parse / chunk / embed"]
+  s["STORE<br/>Originals + metadata + vectors"]
+  q["QUERY<br/>Authenticate / encode / search"]
+  e["Fetch applicable evidence"]
+  g["Generate + verify citations"]
+  a["Answer / abstain<br/>API + workers + monitoring"]
+  i --> s
+  s --> q
+  q --> e
+  e --> g
+  g --> a

@@ -1,0 +1,18 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+d [label="DOCUMENT\ndoc_id + tenant + source identity"];
+v [label="VERSION\ndoc_id + revision + effective interval"];
+c [label="CHUNK\nchunk_id + source span + parent"];
+x [label="SEARCH RECORDS\nlexical / vector + version"];
+g [label="GRAPH ASSERTION\nrelation + source chunk + dates"];
+q [label="QUERY RUN\nscope + index version + trace"];
+e [label="CLAIM VERDICT\nclaim + source IDs + verifier"];
+d -> v [label="1:N"];
+v -> c [label="1:N"];
+c -> x [label="derived"];
+c -> g [label="source support"];
+q -> e [label="1:N"];
+c -> e [label="evidence reference"];
+}

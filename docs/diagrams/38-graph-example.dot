@@ -1,0 +1,21 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+a [label="Team Atlas"];
+l [label="Service Ledger"];
+o [label="Vendor Orion"];
+p [label="Retention Policy R7"];
+s1 [label="Source chunk S1\nTeam / service evidence"];
+s2 [label="Source chunk S2\nSupplier evidence"];
+s3 [label="Source chunk S3\nPolicy applicability evidence"];
+a -> l [label="USES"];
+l -> o [label="SUPPLIED_BY"];
+o -> p [label="SUBJECT_TO"];
+s1 -> a [label="supports"];
+s1 -> l [label="supports"];
+s2 -> l [label="supports"];
+s2 -> o [label="supports"];
+s3 -> o [label="supports"];
+s3 -> p [label="supports"];
+}

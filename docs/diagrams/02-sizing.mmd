@@ -1,0 +1,11 @@
+flowchart TD
+  w["Workload assumptions<br/>Queries + files + update rate"]
+  q["Peak QPS x duration<br/>In-flight requests"]
+  s["Chunks x dimensions x bytes<br/>Raw vector storage"]
+  b["Measure bottlenecks<br/>OCR / index / model quotas"]
+  c["Provision + load test<br/>Headroom + recovery capacity"]
+  w --> q
+  w --> s
+  q --> b
+  s --> b
+  b --> c

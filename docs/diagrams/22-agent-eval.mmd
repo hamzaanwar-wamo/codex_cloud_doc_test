@@ -1,0 +1,14 @@
+flowchart TD
+  t["Task + constraints"]
+  r["Recorded tool / evidence trajectory"]
+  o["Outcome correctness + support"]
+  s["Access / termination / recovery"]
+  c["Latency / tokens / cost / extra calls"]
+  b["Compare to fixed-workflow baseline"]
+  t --> r
+  r --> o
+  r --> s
+  r --> c
+  o --> b
+  s --> b
+  c --> b

@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+s [label="Current authorized sources"];
+i [label="Versioned retrievable representations"];
+r [label="Relevant + sufficient evidence"];
+c [label="Supported material claims"];
+a [label="Cited answer or explicit gap"];
+m [label="Measured quality / freshness / cost"];
+s -> i;
+i -> r;
+r -> c;
+c -> a;
+a -> m;
+}

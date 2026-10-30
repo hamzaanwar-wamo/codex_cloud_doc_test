@@ -1,0 +1,15 @@
+flowchart TD
+  i["Canonical ingestion + shared IDs"]
+  l["Lexical index"]
+  d["Dense index"]
+  m["Publish compatible manifest"]
+  q["Scoped parallel query + fusion"]
+  c["Rerank / parent / evidence"]
+  a["Generate / verify / serve"]
+  i --> l
+  i --> d
+  l --> m
+  d --> m
+  m --> q
+  q --> c
+  c --> a

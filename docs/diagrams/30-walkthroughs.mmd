@@ -1,0 +1,20 @@
+flowchart TD
+  q["Question + scope + date"]
+  v["A: vector factual"]
+  h["Explanation: hybrid"]
+  x["C: exact vectorless"]
+  g["B: graph path"]
+  a["Comparison: bounded agent"]
+  e["Applicable original evidence"]
+  r["Verify claims / citations -> release"]
+  q --> v
+  q --> h
+  q --> x
+  q --> g
+  q --> a
+  v --> e
+  h --> e
+  x --> e
+  g --> e
+  a --> e
+  e --> r

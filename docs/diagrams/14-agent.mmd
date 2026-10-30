@@ -1,0 +1,17 @@
+flowchart TD
+  q["Question -> plan"]
+  t["Select allowed tool"]
+  r["Retrieve with server scope"]
+  e["Check evidence / gaps"]
+  s["Synthesize -> verify -> answer"]
+  p["Replan for specific gap"]
+  b["Budget / deadline / no progress?"]
+  a["Partial supported answer / abstain"]
+  q --> t
+  t --> r
+  r --> e
+  e -->|"sufficient"| s
+  e -->|"gap"| b
+  b -->|"budget remains"| p
+  p --> t
+  b -->|"stop"| a

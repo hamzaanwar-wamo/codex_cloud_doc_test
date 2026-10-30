@@ -1,0 +1,13 @@
+flowchart TD
+  q["Authorized query + date"]
+  b["BM25 candidates"]
+  v["Dense candidates"]
+  f["RRF / calibrated fusion"]
+  r["Deduplicate + rerank"]
+  e["Expand / pack / verify evidence"]
+  q --> b
+  q --> v
+  b --> f
+  v --> f
+  f --> r
+  r --> e

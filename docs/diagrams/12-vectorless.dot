@@ -1,0 +1,19 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+i [label="Parse headings / fields / source spans"];
+s [label="Store tree + lexical + exact indexes"];
+q [label="Scoped question"];
+x [label="Exact ID / version / section"];
+b [label="BM25 / tree navigation"];
+e [label="Original source evidence"];
+a [label="Verify / cite / serve"];
+i -> s;
+s -> q;
+q -> x [label="known key"];
+q -> b [label="exploratory"];
+x -> e;
+b -> e;
+e -> a;
+}

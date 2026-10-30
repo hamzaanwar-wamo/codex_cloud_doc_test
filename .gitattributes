@@ -1,0 +1,8 @@
+*.pdf binary
+*.docx binary
+*.png binary
+*.md text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.mmd text eol=lf
+*.dot text eol=lf

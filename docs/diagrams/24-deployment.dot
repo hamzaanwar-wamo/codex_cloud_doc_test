@@ -1,0 +1,17 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+c [label="Client -> authenticated API"];
+q [label="Query orchestrator / model gateway"];
+s [label="Metadata + lexical / vector / graph stores"];
+m [label="Monitoring + audit + backup"];
+i [label="Sources -> durable queue"];
+w [label="Worker pool -> objects + indexes"];
+c -> q;
+q -> s;
+s -> m;
+i -> w;
+w -> s;
+w -> m;
+}

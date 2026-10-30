@@ -1,0 +1,12 @@
+flowchart TD
+  l["Versioned relevance / fact labels"]
+  c["Candidate recall + ANN reference"]
+  r["Reranked precision / nDCG"]
+  p["Packed-context fact coverage"]
+  h["Multi-hop complete path coverage"]
+  d["Locate first stage losing evidence"]
+  l --> c
+  c --> r
+  r --> p
+  p --> h
+  h --> d

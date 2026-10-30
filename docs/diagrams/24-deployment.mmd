@@ -1,0 +1,13 @@
+flowchart TD
+  c["Client -> authenticated API"]
+  q["Query orchestrator / model gateway"]
+  s["Metadata + lexical / vector / graph stores"]
+  m["Monitoring + audit + backup"]
+  i["Sources -> durable queue"]
+  w["Worker pool -> objects + indexes"]
+  c --> q
+  q --> s
+  s --> m
+  i --> w
+  w --> s
+  w --> m

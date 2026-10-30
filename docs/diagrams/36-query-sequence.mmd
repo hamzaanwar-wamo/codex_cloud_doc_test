@@ -1,0 +1,15 @@
+sequenceDiagram
+  participant U as User
+  participant A as API / scope
+  participant R as Retrieval
+  participant S as Sources
+  participant M as Model / verifier
+  U->>A: Question + authenticated session
+  A->>R: Search with server-enforced scope
+  R->>A: Candidate IDs / ranks / versions
+  A->>S: Fetch applicable authorized chunks
+  S->>A: Original evidence + citation references
+  A->>M: Bounded source blocks + question
+  M->>M: Draft then check material claims
+  M->>A: Supported answer or explicit gaps
+  A->>U: Release verified result

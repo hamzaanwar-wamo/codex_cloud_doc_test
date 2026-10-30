@@ -1,0 +1,20 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+f [label="Inspect source structure"];
+c [label="Code -> AST\nTables -> header + row groups"];
+h [label="Reliable headings -> sections"];
+u [label="Unstructured -> recursive fallback"];
+x [label="Apply token limits / protect facts"];
+ch [label="Index children"];
+pa [label="Query-time parent expansion"];
+f -> c;
+f -> h;
+f -> u;
+c -> x;
+h -> x;
+u -> x;
+x -> ch;
+ch -> pa;
+}

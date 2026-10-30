@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+d [label="Document / chunk metadata\nTenant, source, version, spans"];
+e [label="Rules / NER / LLM enrichment\nKeep source and method"];
+s [label="Persist validated fields"];
+q [label="Runtime identity + question + date"];
+f [label="Server hard scope\nModel hints remain validated"];
+r [label="Scoped route / search / evidence"];
+d -> e;
+e -> s;
+s -> f;
+q -> f;
+f -> r;
+}

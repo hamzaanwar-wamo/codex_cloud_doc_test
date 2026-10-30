@@ -1,0 +1,12 @@
+flowchart TD
+  s["Privacy-reviewed query samples"]
+  g["Add edge cases / negative slices"]
+  a["Independent annotation"]
+  j["Adjudication + label guidelines"]
+  v["Version question + scope + corpus"]
+  h["Separate tuning / final holdout"]
+  s --> g
+  g --> a
+  a --> j
+  j --> v
+  v --> h

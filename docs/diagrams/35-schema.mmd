@@ -1,0 +1,14 @@
+flowchart TD
+  d["DOCUMENT<br/>doc_id + tenant + source identity"]
+  v["VERSION<br/>doc_id + revision + effective interval"]
+  c["CHUNK<br/>chunk_id + source span + parent"]
+  x["SEARCH RECORDS<br/>lexical / vector + version"]
+  g["GRAPH ASSERTION<br/>relation + source chunk + dates"]
+  q["QUERY RUN<br/>scope + index version + trace"]
+  e["CLAIM VERDICT<br/>claim + source IDs + verifier"]
+  d -->|"1:N"| v
+  v -->|"1:N"| c
+  c -->|"derived"| x
+  c -->|"source support"| g
+  q -->|"1:N"| e
+  c -->|"evidence reference"| e

@@ -1,0 +1,12 @@
+flowchart TD
+  d["Document / chunk metadata<br/>Tenant, source, version, spans"]
+  e["Rules / NER / LLM enrichment<br/>Keep source and method"]
+  s["Persist validated fields"]
+  q["Runtime identity + question + date"]
+  f["Server hard scope<br/>Model hints remain validated"]
+  r["Scoped route / search / evidence"]
+  d --> e
+  e --> s
+  s --> f
+  q --> f
+  f --> r

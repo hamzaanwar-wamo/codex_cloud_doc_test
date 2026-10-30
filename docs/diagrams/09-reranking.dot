@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+k [label="Candidate top-K\nOptimize evidence recall"];
+r [label="Cross-encoder / reranker"];
+d [label="Deduplicate + diversity"];
+p [label="Authorized parent expansion"];
+n [label="Final context top-N / token budget"];
+v [label="Check all required facts"];
+k -> r;
+r -> d;
+d -> p;
+p -> n;
+n -> v;
+}

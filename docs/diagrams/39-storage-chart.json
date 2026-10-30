@@ -1,0 +1,16 @@
+{
+  "chunks": 20000000,
+  "labels": [
+    "384 dims / float32",
+    "768 dims / float32",
+    "1536 dims / float32",
+    "768 dims / int8"
+  ],
+  "decimal_GB": [
+    30.72,
+    61.44,
+    122.88,
+    15.36
+  ],
+  "kind": "hypothetical raw storage arithmetic"
+}

@@ -1,0 +1,15 @@
+flowchart TD
+  q["What is missing from a simple baseline?"]
+  x["Known key -> lookup<br/>Rare terms -> BM25"]
+  p["Paraphrase -> dense<br/>Mixed -> hybrid"]
+  g["Relationships -> graph"]
+  a["Variable steps -> bounded agent"]
+  e["Evaluate quality / isolation / cost<br/>Keep only justified complexity"]
+  q --> x
+  q --> p
+  q --> g
+  q --> a
+  x --> e
+  p --> e
+  g --> e
+  a --> e

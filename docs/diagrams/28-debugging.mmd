@@ -1,0 +1,12 @@
+flowchart TD
+  q["Reproduce query + identity + version"]
+  s["Source -> parse -> chunk"]
+  i["Index -> candidate recall"]
+  r["Rerank -> packed context"]
+  g["Generation -> verified claim"]
+  f["Fix first broken boundary<br/>Re-evaluate affected slices"]
+  q --> s
+  s --> i
+  i --> r
+  r --> g
+  g --> f

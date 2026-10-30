@@ -1,0 +1,18 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+i [label="Trusted instructions + question"];
+e [label="Untrusted source blocks + citation IDs"];
+p [label="Budgeted prompt"];
+g [label="Grounded structured draft"];
+v [label="Schema + citations + claim checks"];
+a [label="Verified release"];
+r [label="Revise / abstain"];
+i -> p;
+e -> p;
+p -> g;
+g -> v;
+v -> a [label="pass"];
+v -> r [label="fail"];
+}

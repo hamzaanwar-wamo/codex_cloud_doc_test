@@ -1,0 +1,20 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+e [label="Candidate evidence"];
+v [label="Check scope / authority / date"];
+f [label="Required facts + contradiction check"];
+c [label="Draft -> material claims"];
+s [label="Map claims to original spans"];
+j [label="Rules + calibrated semantic checks"];
+a [label="Release supported answer"];
+n [label="Revise / disclose gap / abstain"];
+e -> v;
+v -> f;
+f -> c;
+c -> s;
+s -> j;
+j -> a [label="supported"];
+j -> n [label="unsupported"];
+}

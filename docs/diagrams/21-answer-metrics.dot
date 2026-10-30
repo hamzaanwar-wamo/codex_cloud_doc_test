@@ -1,0 +1,17 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+a [label="Answer + applicable sources + rubric"];
+d [label="Deterministic checks"];
+j [label="Calibrated judge + human sample"];
+s [label="Correctness / support / completeness"];
+r [label="Risk-coverage + critical access failures"];
+g [label="Release / reject under defined gates"];
+a -> d;
+a -> j;
+d -> s;
+j -> s;
+s -> r;
+r -> g;
+}

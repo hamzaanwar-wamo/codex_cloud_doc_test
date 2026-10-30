@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+d [label="Parsed authorized chunks"];
+a [label="Analyzer\nTerms + frequencies + positions"];
+p [label="Inverted postings\nterm -> chunk IDs + statistics"];
+q [label="Query terms / exact fields"];
+b [label="Visit postings + BM25 scoring"];
+r [label="Ranked source IDs -> evidence"];
+d -> a;
+a -> p;
+p -> b;
+q -> b;
+b -> r;
+}

@@ -1,0 +1,15 @@
+flowchart TD
+  q["Information need"]
+  s["Exact facts -> SQL / lookup"]
+  t["Time-sensitive -> temporal"]
+  m["Images / tables -> multimodal"]
+  r["Research -> multi-hop / adaptive"]
+  e["Common evidence verification + access"]
+  q --> s
+  q --> t
+  q --> m
+  q --> r
+  s --> e
+  t --> e
+  m --> e
+  r --> e

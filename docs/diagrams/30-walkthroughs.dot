@@ -1,0 +1,24 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+q [label="Question + scope + date"];
+v [label="A: vector factual"];
+h [label="Explanation: hybrid"];
+x [label="C: exact vectorless"];
+g [label="B: graph path"];
+a [label="Comparison: bounded agent"];
+e [label="Applicable original evidence"];
+r [label="Verify claims / citations -> release"];
+q -> v;
+q -> h;
+q -> x;
+q -> g;
+q -> a;
+v -> e;
+h -> e;
+x -> e;
+g -> e;
+a -> e;
+e -> r;
+}

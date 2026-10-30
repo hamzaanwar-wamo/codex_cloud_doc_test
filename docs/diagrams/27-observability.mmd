@@ -1,0 +1,13 @@
+flowchart TD
+  r["Request / ingestion trace ID"]
+  s["Safe spans: IDs + versions + ranks"]
+  m["Metrics: latency / quality / freshness / cost"]
+  a["Audit: authorized access / actions"]
+  d["Detect + investigate + isolate"]
+  f["Restore verified path / regression"]
+  r --> s
+  s --> m
+  s --> a
+  m --> d
+  a --> d
+  d --> f

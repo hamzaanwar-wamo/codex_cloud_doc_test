@@ -1,0 +1,12 @@
+flowchart TD
+  l["OFFLINE LAB<br/>Synthetic versioned corpus"]
+  s["Scope / date filter"]
+  b["BM25 + hashed lexical vectors"]
+  f["RRF + source excerpts + metrics"]
+  p["PRODUCTION EXTENSIONS<br/>Real parser / DB / models / verifier"]
+  t["Actual integration + fault tests required"]
+  l --> s
+  s --> b
+  b --> f
+  f -->|"adapter boundary"| p
+  p --> t

@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB,bgcolor="white",pad="0.2",ranksep="0.35"];
+node [shape=box,style="rounded,filled",fillcolor="#EAF2F8",color="#397399",fontname="DejaVu Sans",fontsize=11];
+edge [color="#526574",fontname="DejaVu Sans",fontsize=9];
+s [label="Privacy-reviewed query samples"];
+g [label="Add edge cases / negative slices"];
+a [label="Independent annotation"];
+j [label="Adjudication + label guidelines"];
+v [label="Version question + scope + corpus"];
+h [label="Separate tuning / final holdout"];
+s -> g;
+g -> a;
+a -> j;
+j -> v;
+v -> h;
+}

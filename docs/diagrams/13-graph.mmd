@@ -1,0 +1,14 @@
+flowchart TD
+  s["Sources -> chunks + spans"]
+  e["Extract + resolve entities / assertions"]
+  g["Versioned graph + optional summaries"]
+  q["Scoped entity / relation query"]
+  p["Bounded permitted paths"]
+  f["Fetch original evidence for each edge"]
+  a["Verify joins + dates -> cited answer"]
+  s --> e
+  e --> g
+  g --> q
+  q --> p
+  p --> f
+  f --> a

@@ -1,0 +1,12 @@
+flowchart TD
+  d["Offline documents -> tokens"]
+  e["Compatible document encoder"]
+  i["Versioned vectors + ANN index"]
+  q["Runtime query encoder"]
+  a["Filtered ANN search"]
+  x["Compare against exact eligible search"]
+  d --> e
+  e --> i
+  i --> a
+  q --> a
+  a --> x
